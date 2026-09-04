@@ -45,11 +45,16 @@ database tweaks).
 
 ## Deployment steps
 
+There is no build step. This is plain PHP/CSS/JS with no dependencies —
+no `npm install`, no `composer install`, nothing to compile. Copying the
+folder in is the whole installation.
+
 1. **Back up the target site first** (files + database) — standard
    practice before any theme change.
-2. **Test on a staging copy, not production.** Copy
-   `wp-content/themes/wrmk-v3/` into the staging site's
-   `wp-content/themes/` folder.
+2. **Test on a staging copy, not production.** Clone this repo (or
+   download it as a zip) and copy `wp-content/themes/wrmk-v3/` into the
+   staging site's `wp-content/themes/` folder. Nothing else in this repo
+   (just the README) needs to go anywhere.
 3. In **wp-admin → Appearance → Themes**, activate **"WRMK v3"**.
 4. Go to **Settings → Permalinks** and click **Save Changes** once, even
    without changing anything. This flushes WordPress's rewrite rules,
@@ -100,6 +105,13 @@ important for whoever maintains the site next:
   **If the live site already has these post types registered by an
   active plugin, that's fine — WordPress just uses one registration —
   but it's worth confirming there's no conflicting plugin still active.**
+- **The staff profile fields (phone, email, bio, qualifications, etc.)
+  are stored as Advanced Custom Fields (ACF) data, but the theme reads
+  them directly with WordPress's own `get_post_meta()`, not ACF's
+  `get_field()`.** In practice this means the **ACF plugin does not need
+  to be active** for staff profiles to display correctly — the theme has
+  no dependency on it. (If ACF *is* active on the live site for editing
+  convenience in wp-admin, that's fine too — it doesn't conflict.)
 - **Pages are nested more deeply/inconsistently than you'd expect in a
   few places** — e.g. "Criminal law" is a *child of* "Dispute
   resolution" (not a direct child of "Services"), and "Employment Health
